@@ -10,6 +10,47 @@ from userPage.forms import DocumentForm
 from django.views.decorators.csrf import csrf_exempt
 
 import logging
+# import smtplib
+# from email.mime.text import MIMEText
+
+# def sendingEmail(): 
+# 	server = smtplib.SMTP('smtp.gmail.com', 587)
+# 	server.starttls()
+# 	server.login("postechserver@gmail.com", "wjswkghlfh")
+
+# 	msg = "WARNING : CHECK IMG AS SOON AS POSSIBLE\n'http://52.78.37.233:8080'"
+
+# 	# server.sendmail("postechserver@gmail.com", "yguhan@gmail.com", msg)
+# 	server.sendmail("postechserver@gmail.com", "postechserver@gmail.com", msg)
+# 	server.quit()
+
+import smtplib  
+from email.mime.multipart import MIMEMultipart  
+from email.mime.text import MIMEText
+
+def send_email():  
+    from_addr = 'postechserver@gmail.com'
+    to_addr = 'yguhan@gmail.com'
+
+    server = smtplib.SMTP('smtp.gmail.com:587')
+    server.starttls()
+
+    server.login(from_addr, 'wjswkghlfh')
+
+    body = MIMEMultipart()
+    body['subject'] = "S CCTV"
+    body['From'] = from_addr
+    body['To'] = to_addr
+
+    html = "<div>WARNING : CHECK IMG AS SOON AS POSSIBLE\n&quot;http://52.78.37.233:8080&quot;</div>"
+    msg = MIMEText(html, 'html')
+    body.attach(msg)
+
+    server.sendmail(from_addr=from_addr,
+                    to_addrs=[to_addr],  
+                    msg=body.as_string())
+
+    server.quit()
 
 #from userPage.models import RequestLog
 
@@ -25,8 +66,9 @@ def list(request):
 
 			newdoc = Document(docfile = request.FILES['docfile'])
 			newdoc.save()
-
-			return HttpResponseRedirect(reverse('list'))
+			# sendingEmail()
+			send_email()
+		return HttpResponseRedirect("http://52.78.37.233:8080/userPage")
 	else:
 		form = DocumentForm()
 

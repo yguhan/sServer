@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 		<head>
@@ -15,8 +16,7 @@
 				</ul>
 			{% endif %}
 
-
-			<form action ="{% url "list" %}" method="post" enctype="multipart/form-data">
+			<form action ="/userPage/list/" method="post" enctype="multipart/form-data">
 		<!--			{% csrf_token %}	-->
 				<p>{{ form.non_field_errors}}</p>
 		<!--		<p>{{ form.docfile.label_tag}}  -->

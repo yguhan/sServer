@@ -1,7 +1,10 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
+from . import views
 
-urlpatterns = patterns('userPage.views',
-		url(r'^$', 'list', name='list'),
-		url(r'^list/$', 'list', name='list'),
+app_name = "userPage"
+
+urlpatterns = [
+		url(r'^$', views.list, name='list'),
+		url(r'^list/$', views.list, name='list'),
 		#url(r'^test/$', 'test', name='test'),
-)
+]
