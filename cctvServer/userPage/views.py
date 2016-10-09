@@ -10,6 +10,7 @@ from userPage.forms import DocumentForm
 from django.views.decorators.csrf import csrf_exempt
 
 import logging
+from datetime import datetime
 # import smtplib
 # from email.mime.text import MIMEText
 
@@ -28,30 +29,52 @@ import smtplib
 from email.mime.multipart import MIMEMultipart  
 from email.mime.text import MIMEText
 
-def send_email():  
-    from_addr = 'postechserver@gmail.com'
-    to_addr = 'yguhan@gmail.com'
+class Alarm():
+	def __init__(self):
+		self.initial = True
+		self.timeNow = datetime.now()
 
-    server = smtplib.SMTP('smtp.gmail.com:587')
-    server.starttls()
+	def check(self):
+		if(self.initial):
+			self.initial=False
+			return True
+		else:
+			diff = (datetime.now() - self.timeNow).total_seconds()
+			if diff>120:
+				self.timeNow = datetime.now()
+				return True
+		return False
 
-    server.login(from_addr, 'wjswkghlfh')
+	def send_email(self):		 
+	    from_addr = 'postechserver@gmail.com'
+	    to_addr = 'yguhan@gmail.com'
 
-    body = MIMEMultipart()
-    body['subject'] = "S CCTV"
-    body['From'] = from_addr
-    body['To'] = to_addr
+	    server = smtplib.SMTP('smtp.gmail.com:587')
+	    server.starttls()
+	    server.login(from_addr, 'wjswkghlfh')
 
-    html = "<div>WARNING : CHECK IMG AS SOON AS POSSIBLE\n&quot;http://52.78.37.233:8080&quot;</div>"
-    msg = MIMEText(html, 'html')
-    body.attach(msg)
+	    body = MIMEMultipart()
+	    body['subject'] = "S CCTV"
+	    body['From'] = from_addr
+	    body['To'] = to_addr
 
-    server.sendmail(from_addr=from_addr,
-                    to_addrs=[to_addr],  
-                    msg=body.as_string())
+	    html = "<div>WARNING : CHECK IMG AS SOON AS POSSIBLE\n&quot;http://52.78.37.233:8080&quot;</div>"
+	    msg = MIMEText(html, 'html')
+	    body.attach(msg)
 
-    server.quit()
+	    server.sendmail(from_addr=from_addr,
+	                    to_addrs=[to_addr],  
+	                    msg=body.as_string())
+	    server.quit()
+	    print "sending time: ", self.timeNow
 
+	def run(self):
+		if self.check():
+			self.send_email()
+		else:
+			pass
+	
+alarm = Alarm()
 #from userPage.models import RequestLog
 
 # Create your views here.
@@ -67,7 +90,7 @@ def list(request):
 			newdoc = Document(docfile = request.FILES['docfile'])
 			newdoc.save()
 			# sendingEmail()
-			send_email()
+			alarm.run()
 		return HttpResponseRedirect("http://52.78.37.233:8080/userPage")
 	else:
 		form = DocumentForm()
