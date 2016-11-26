@@ -98,32 +98,9 @@ def list(request):
 	documents = Document.objects.all()
 
 	return render_to_response(
-		'userPage/list.html',
+		'userPage/base.html',
 		{'documents': documents, 'form':form}
 	)	
 
 def index(request):
-	return render_to_response('userPage/index.html')
-
-"""
-@csrf_exempt
-def test(request):
-	if request.method == 'POST':
-		req = RequestLog(req = request.body)
-		req.save()
-	
-		req = RequestLog(req = request.META)
-		req.save()
-	
-	
-
-		return HttpResponseRedirect(reverse('test'))
-
-	else:
-		requestLogs = RequestLog.objects.all()
-
-		return render_to_response(
-			'userPage/test.html',
-			{'requestLogs': requestLogs}
-		)
-"""
+	return render_to_response('userPage/base.html')

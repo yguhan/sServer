@@ -1,3 +1,84 @@
-<br/>
-<div class="subtitle_2nd" id="Template">Template: cctvServer/userPage/templates/userPage/list.html</div>
+{% load static %}
 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Smart Phone CCTV</title>
+
+    <!-- Bootstrap core CSS -->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/album.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+
+    <section class="jumbotron text-xs-center">
+      <div class="container">
+          <!--  <form action ="/userPage/list/" method="post" enctype="multipart/form-data">
+            <p>{{ form.non_field_errors}}</p>
+            <p>{{ form.docfile.label_tag}}
+            {{ form.docfile }}
+            </p>
+            <p><input type="submit" value="Upload"/></p>
+          </form> -->
+          <p>
+            침입 정보를 확인 하세요
+          </p>
+      </div>
+    </section>
+
+  
+
+    <div class="album text-muted">
+      <div class="container">
+
+        <!-- <div class="row"> -->
+        {% if documents %}
+          <!-- 
+          <div class="row"> -->
+          {% for document in documents %}
+          
+            <div class="card">
+              <div class="col-sm-6">
+                  <li><a href="{{ document.docfile.url}}">{{document.docfile.name}}<img src="{{document.docfile.url}}"
+                  width="200px" height="200px" alt="{{document.docfile.name}}">
+              </div>
+            </div>
+          
+          {% endfor%}
+          <!-- </div> -->
+        {% else %}
+          <p>
+          침입 결과가 없습니다.                   
+          </p>
+        {% endif %}
+        </div>
+
+      <!-- </div> -->
+    </div>
+
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-xs-right">
+          <a href="#">맨위로</a>
+        </p>
+        <p>Smart Phone CCTV Web site </p>
+      </div>
+    </footer>
+
+
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,101 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Smart Phone CCTV</title>
+
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  </head>
+  <body>
+
+    <div class="container">
+        
+<!--         <div class="col-sm-12">
+            <div class="thumbnail thumbnail-grand-profile">
+              <img data-src="custom.holder/150x100?theme=custom&amp;auto=yes" style="width:100%;height:300px;background: #675E5E;">
+              <div class="caption caption-grand-profile">                      
+                <h3 class="title-grand-profile">침입 정보를 확인 하세요</h3>      
+              </div>
+              <ul class="nav nav-pills nav-grand-profile">
+                  <li role="presentation" class="active"><a href="#">Biografy</a></li>
+                  <li role="presentation"><a href="#">Information</a></li>
+                  <li role="presentation"><a href="#">Friends</a></li>
+                  <li role="presentation"><a href="#">Pictures</a></li>
+              </ul>
+            </div>    
+        </div>
+ -->        
+        <aside class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">침입 정보를 확인하세요</div>
+                <div class="panel-body">
+                최근 사진부터 정렬
+                </div>
+            </div>
+        </aside>
+        
+        <!--timeline-->
+        <section class="timeline col-sm-9">
+        <!--post Timeline-->
+        {% if documents %}
+          {% for document in documents reversed %}
+          <div class="thumbnail thumbnail-post">
+              <!--caption-->
+              <div class="caption">
+                  <div class="media">
+                    <div class="media-left">
+                      <a href="#" class="image-post">
+                       <p>증거</p>
+                      </a>
+                    </div>
+                    <div class="media-body">
+                      <a class="media-heading title-post" href="{{ document.docfile.url}}">{{document.docfile.name}}</a>
+                    </div>
+                  </div>
+                <img src="{{document.docfile.url}}" width="200px" height="200px" alt="{{document.docfile.name}}">
+              </div><!--#caption-->
+             
+          </div>
+          {% endfor %}
+        {% else %}
+          <p>
+          침입 결과가 없습니다.                   
+          </p>
+        {% endif %}
+        <!--#post timeline-->
+   
+      </section>
+      <!--#timeline-->
+
+
+<!--     <footer class="text-muted">
+      <div class="container">
+        <p class="float-xs-right">
+          <a href="#">맨위로</a>
+        </p>
+        <p>Smart Phone CCTV Web site </p>
+      </div>
+    </footer> -->
+      <a href="#">맨위로</a>
+      <p>Smart Phone CCTV Web site </p>
+    
+
+    </div><!--#container-->
+
+<!--     <script src="{% static 'js/bootstrap.min.js' %}"></script> -->
+    <script src="{% static 'js/holder.js' %}"></script>    
+    <!-- <script src="{% static 'js/dongaribot-jquery.js' %}"></script> -->    
+
+
+  </body>
+</html>
